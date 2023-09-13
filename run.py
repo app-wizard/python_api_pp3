@@ -32,7 +32,7 @@ def get_weather(city):
 
     clear()
     print("_______________________________________________________")
-    print(Fore.CYAN + f"Hi there! The weather in {city} today is fantastic!: ")
+    print(Fore.YELLOW + f"Hi there! The weather in {city} today is fantastic!: ")
     print(
         f"Temperature: {temp}°C  *  Humidity: {humidity}%  * {descr} " + Fore.RESET)
     print("_______________________________________________________")
@@ -93,7 +93,7 @@ def hours():
     """
     while True:
         try:
-            hours_input = int(
+            hours_input = float(
                 input("from 16 to 48: \n"))
             if 16 <= hours_input <= 48:
                 WORK_SHEET.update_acell('B2', hours_input)
@@ -106,13 +106,13 @@ def hours():
 
 
 def tax_calculator():
-    cut_off_point = int(WORK_SHEET.acell('B15').value)
-    yearly_salary = int(WORK_SHEET.acell('B4').value)
+    cut_off_point = float(WORK_SHEET.acell('B15').value)
+    yearly_salary = float(WORK_SHEET.acell('B4').value)
 
     if yearly_salary <= cut_off_point:
-        tax = yearly_salary * 0.2
+        tax = round(yearly_salary * 0.2)
     else:
-        tax = cut_off_point * 0.2 + (yearly_salary-cut_off_point) * 0.4
+        tax = round(cut_off_point * 0.2 + (yearly_salary-cut_off_point) * 0.4)
 
     WORK_SHEET.update_acell('B16', tax)
     print("Taxes are calculated !")
@@ -125,20 +125,20 @@ def mood_calculator():
     """
     after_tax_hourly_salary = float(WORK_SHEET.acell('C9').value)
     if after_tax_hourly_salary <= 14:
-        print(Fore.CYAN + "Wages below 14 euros per hour - apparently, you are a Pessimist" + Fore.RESET)
+        print(Fore.YELLOW + "Wages below 14 euros per hour - apparently, you are a Pessimist" + Fore.RESET)
     elif after_tax_hourly_salary <= 35:
-        print(Fore.CYAN + "Wages below 14-35 euros  per hour  - apparently you are a Realist" + Fore.RESET)
+        print(Fore.YELLOW + "Wages below 14-35 euros  per hour  - apparently you are a Realist" + Fore.RESET)
     else:
-        print(Fore.CYAN + "Wages is more than 35 euros per hour - apparently, you are an Optimist" + Fore.RESET)
+        print(Fore.YELLOW + "Wages is more than 35 euros per hour - apparently, you are an Optimist" + Fore.RESET)
 
 
 def salary_calculator():
     """
     Сalculate the daily weekly annual and hourly wage rates
     """
-    hours_per_week = int(WORK_SHEET.acell('B2').value)
-    yearly_salary = int(WORK_SHEET.acell('B4').value)
-    tax = int(WORK_SHEET.acell('B16').value)
+    hours_per_week = float(WORK_SHEET.acell('B2').value)
+    yearly_salary = float(WORK_SHEET.acell('B4').value)
+    tax = float(WORK_SHEET.acell('B16').value)
     print(
         f"Yearly salary Gross {yearly_salary:.0f}€  *  Work hours per week: {hours_per_week}")
     print("************************************************************")
@@ -190,10 +190,10 @@ def main():
     print("Do you want to change the city Y/N?")
     resp = input().upper()
     new_city(resp)
-    print(Fore.CYAN + "On such a beautiful day, it will be wonderful to set salary goals for yourself!")
+    print(Fore.YELLOW + "On such a beautiful day, it will be wonderful to set salary goals for yourself!")
     print("Enter the desired gross nominal salary for 2024" + Fore.RESET)
     salary()
-    print(Fore.CYAN + "What is your intended weekly working hours?" + Fore.RESET)
+    print(Fore.YELLOW + "What is your intended weekly working hours?" + Fore.RESET)
     hours()
     tax_calculator()
     salary_calculator()
