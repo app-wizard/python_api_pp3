@@ -16,7 +16,7 @@ GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('pp3sheet')
 WORK_SHEET = SHEET.worksheet("pay_sheet")
 API_URL = "https://api.openweathermap.org/data/2.5/weather?"
-# KEY = open("api.key", "r").read()
+KEY = open("api.key", "r").read()
 city = "DUBLIN"
 
 
