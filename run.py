@@ -13,6 +13,7 @@ CREDS = Credentials.from_service_account_file('creds.json')
 SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('pp3sheet')
+WORK_SHEET = SHEET.worksheet("pay_sheet")
 
 API_URL = "https://api.openweathermap.org/data/2.5/weather?"
 API_KEY = open("./api.key", "r").read()
@@ -53,7 +54,6 @@ def new_city(answer):
         newcity = input().upper()
         try:
             get_weather(newcity)
-
         except:
             clear()
             print(
@@ -61,7 +61,6 @@ def new_city(answer):
             print("Do you want to change the city Y/N?")
             resp = input().upper()
             new_city(resp)
-
     elif answer == "N":
         pass
     else:
@@ -79,12 +78,14 @@ def salary():
             salary_input = int(
                 input("Enter a number from 100 to 10000000: \n"))
             if 100 <= salary_input <= 10000000:
+                WORK_SHEET.update_acell('B4', salary_input)
                 break
             else:
                 print(
                     "The input takes a number in the range from 100 to 10000000. Try again.")
         except ValueError:
             print("You didn't enter a number. Try again.")
+
 
 def hours():
     """
@@ -95,6 +96,7 @@ def hours():
             hours_input = int(
                 input("Enter a number from 16 to 48: \n"))
             if 16 <= hours_input <= 48:
+                WORK_SHEET.update_acell('B2', hours_input)
                 break
             else:
                 print(
@@ -102,19 +104,78 @@ def hours():
         except ValueError:
             print("You didn't enter a number. Try again.")
 
+
+def tax_calculator():
+    cut_off_point = int(WORK_SHEET.acell('B15').value)
+    yearly_salary = int(WORK_SHEET.acell('B4').value)
+
+    if yearly_salary <= cut_off_point:
+        tax = yearly_salary * 0.2
+    else:
+        tax = cut_off_point * 0.2 + (yearly_salary-cut_off_point) * 0.4
+
+    WORK_SHEET.update_acell('B16', tax)
+    print("Taxes are calculated !")
+    clear()
+
+
+def salary_calculator():
+    hours_per_week = int(WORK_SHEET.acell('B2').value)
+    yearly_salary = int(WORK_SHEET.acell('B4').value)
+    tax = int(WORK_SHEET.acell('B16').value)
+    print(f"Yearly salary Gross {yearly_salary:.0f}€  *  Work hours per week: {hours_per_week}")
+
+    after_tax_salary = yearly_salary - tax
+    WORK_SHEET.update_acell('C4', after_tax_salary)
+    print(f"Your Yearly salary after tax: {after_tax_salary:.0f} €")
+
+    monthly_salary = round(yearly_salary / 12, 2)
+    WORK_SHEET.update_acell('B5', monthly_salary)
+    after_tax_monthly_salary = round(after_tax_salary / 12, 2)
+    WORK_SHEET.update_acell('C5', after_tax_monthly_salary)
+    print(f"Your Monthly salary after tax: {after_tax_monthly_salary:.0f} €")
+
+    beweekly_salary = round(yearly_salary / 26, 2)
+    WORK_SHEET.update_acell('B6', beweekly_salary)
+    after_tax_beweekly_salary = round(after_tax_salary / 26, 2)
+    WORK_SHEET.update_acell('C6', after_tax_beweekly_salary)
+    print(f"Your Biweekly salary after tax: {after_tax_beweekly_salary:.0f} €")
+
+    weekly_salary = round(yearly_salary / 52, 2)
+    WORK_SHEET.update_acell('B7', weekly_salary)
+    after_tax_weekly_salary = round(after_tax_salary / 52, 2)
+    WORK_SHEET.update_acell('C7', after_tax_weekly_salary)
+    print(f"Your Weekly salary after tax: {after_tax_weekly_salary:.0f} €")
+
+    daily_salary = round(yearly_salary / 250, 2)
+    WORK_SHEET.update_acell('B8', daily_salary)
+    after_tax_daily_salary = round(after_tax_salary / 250, 2)
+    WORK_SHEET.update_acell('C8', after_tax_daily_salary)
+    print(f"Your Daily salary after tax: {after_tax_daily_salary:.0f} €")
+
+    hourly_salary = round(weekly_salary / hours_per_week, 2)
+    WORK_SHEET.update_acell('B9', hourly_salary)
+    after_tax_hourly_salary = round(
+        after_tax_weekly_salary / hours_per_week, 2)
+    WORK_SHEET.update_acell('C9', after_tax_hourly_salary)
+    print(f"Your Hourly salary after tax: {after_tax_hourly_salary:.0f} €")
+
+
 def main():
     """
     Run all program functions
     """
     get_weather(city)
-    print("Do you want to change the city Y/N? \n")
+    print("Do you want to change the city Y/N?")
     resp = input().upper()
     new_city(resp)
-
     print("On such a beautiful day, it will be wonderful to set salary goals for yourself!")
     print("Enter the desired gross nominal salary for 2024:")
     salary()
     print("What is your intended weekly working hours, with a minimum of 16 hours and a maximum of 48 hours?")
     hours()
+    tax_calculator()
+    salary_calculator()
+
 
 main()
