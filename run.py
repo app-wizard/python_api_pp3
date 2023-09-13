@@ -3,7 +3,6 @@ import requests
 import os
 from google.oauth2.service_account import Credentials
 from colorama import init, Fore, Back, Style
-init()
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
