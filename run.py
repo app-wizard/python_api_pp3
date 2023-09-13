@@ -2,6 +2,8 @@ import gspread
 import requests
 import os
 from google.oauth2.service_account import Credentials
+from colorama import init, Fore, Back, Style
+init()
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -14,7 +16,6 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('pp3sheet')
 WORK_SHEET = SHEET.worksheet("pay_sheet")
-
 API_URL = "https://api.openweathermap.org/data/2.5/weather?"
 API_KEY = open("./api.key", "r").read()
 city = "DUBLIN"
@@ -22,8 +23,7 @@ city = "DUBLIN"
 
 def get_weather(city):
     """
-    The function receives weather data from openweathermap 
-    and outputs it to the terminal
+    The function receives weather data from openweathermap and outputs it to the terminal
     """
     url = API_URL+"q="+city+',&APPID='+API_KEY
     response = requests.get(url).json()
@@ -33,8 +33,9 @@ def get_weather(city):
 
     clear()
     print("_______________________________________________________")
-    print(f"Hi there! The weather in {city} today is fantastic!:")
-    print(f"Temperature: {temp}°C  *  Humidity: {humidity}%  * {descr} ")
+    print(Fore.CYAN + f"Hi there! The weather in {city} today is fantastic!: ")
+    print(
+        f"Temperature: {temp}°C  *  Humidity: {humidity}%  * {descr} " + Fore.RESET)
     print("_______________________________________________________")
 
 
@@ -76,7 +77,7 @@ def salary():
     while True:
         try:
             salary_input = int(
-                input("Enter a number from 100 to 10000000: \n"))
+                input("from 100 to 10000000: \n"))
             if 100 <= salary_input <= 10000000:
                 WORK_SHEET.update_acell('B4', salary_input)
                 break
@@ -94,7 +95,7 @@ def hours():
     while True:
         try:
             hours_input = int(
-                input("Enter a number from 16 to 48: \n"))
+                input("from 16 to 48: \n"))
             if 16 <= hours_input <= 48:
                 WORK_SHEET.update_acell('B2', hours_input)
                 break
@@ -119,15 +120,33 @@ def tax_calculator():
     clear()
 
 
+def mood_calculator():
+    """
+    Сounting on how optimistic your salary expectations
+    """
+    after_tax_hourly_salary = float(WORK_SHEET.acell('C9').value)
+    if after_tax_hourly_salary <= 14:
+        print(Fore.CYAN + "Wages below 14 euros per hour - apparently, you are a Pessimist" + Fore.RESET)
+    elif after_tax_hourly_salary <= 35:
+        print(Fore.CYAN + "Wages below 14-35 euros  per hour  - apparently you are a Realist" + Fore.RESET)
+    else:
+        print(Fore.CYAN + "Wages is more than 35 euros per hour - apparently, you are an Optimist" + Fore.RESET)
+
+
 def salary_calculator():
+    """
+    Сalculate the daily weekly annual and hourly wage rates
+    """
     hours_per_week = int(WORK_SHEET.acell('B2').value)
     yearly_salary = int(WORK_SHEET.acell('B4').value)
     tax = int(WORK_SHEET.acell('B16').value)
-    print(f"Yearly salary Gross {yearly_salary:.0f}€  *  Work hours per week: {hours_per_week}")
-
+    print(
+        f"Yearly salary Gross {yearly_salary:.0f}€  *  Work hours per week: {hours_per_week}")
+    print("************************************************************")
     after_tax_salary = yearly_salary - tax
     WORK_SHEET.update_acell('C4', after_tax_salary)
-    print(f"Your Yearly salary after tax: {after_tax_salary:.0f} €")
+    print(Fore.GREEN +
+          f"Your Yearly salary after tax: {after_tax_salary:.0f} €")
 
     monthly_salary = round(yearly_salary / 12, 2)
     WORK_SHEET.update_acell('B5', monthly_salary)
@@ -139,7 +158,8 @@ def salary_calculator():
     WORK_SHEET.update_acell('B6', beweekly_salary)
     after_tax_beweekly_salary = round(after_tax_salary / 26, 2)
     WORK_SHEET.update_acell('C6', after_tax_beweekly_salary)
-    print(f"Your Biweekly salary after tax: {after_tax_beweekly_salary:.0f} €")
+    print(Fore.GREEN +
+          f"Your Biweekly salary after tax: {after_tax_beweekly_salary:.0f} €")
 
     weekly_salary = round(yearly_salary / 52, 2)
     WORK_SHEET.update_acell('B7', weekly_salary)
@@ -158,24 +178,35 @@ def salary_calculator():
     after_tax_hourly_salary = round(
         after_tax_weekly_salary / hours_per_week, 2)
     WORK_SHEET.update_acell('C9', after_tax_hourly_salary)
-    print(f"Your Hourly salary after tax: {after_tax_hourly_salary:.0f} €")
+    print(
+        f"Your Hourly salary after tax: {after_tax_hourly_salary:.0f} €" + Fore.RESET)
 
 
 def main():
     """
     Run all program functions
     """
+    clear()
     get_weather(city)
     print("Do you want to change the city Y/N?")
     resp = input().upper()
     new_city(resp)
-    print("On such a beautiful day, it will be wonderful to set salary goals for yourself!")
-    print("Enter the desired gross nominal salary for 2024:")
+    print(Fore.CYAN + "On such a beautiful day, it will be wonderful to set salary goals for yourself!")
+    print("Enter the desired gross nominal salary for 2024" + Fore.RESET)
     salary()
-    print("What is your intended weekly working hours, with a minimum of 16 hours and a maximum of 48 hours?")
+    print(Fore.CYAN + "What is your intended weekly working hours?" + Fore.RESET)
     hours()
     tax_calculator()
     salary_calculator()
+    mood_calculator()
+    print("************************************************************")
+    print(Fore.GREEN + "A detailed calculation can be found in the Google table at:" + Fore.RESET)
+    print("https://docs.google.com/spreadsheets/d/1OgR1vfutXLjA3ovPVGmPvRmwxdp7pBJh-PtBvjiMQKs/edit#gid=0")
+    print(Fore.GREEN + """
+ /\_/\                                             /\_/\  
+( o.o ) Thank you for using our salary calculator ( o.o ) 
+ > ^ <                                             > ^ <
+""" + Fore.RESET)
 
 
 main()
