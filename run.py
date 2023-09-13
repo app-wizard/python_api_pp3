@@ -16,7 +16,7 @@ GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('pp3sheet')
 WORK_SHEET = SHEET.worksheet("pay_sheet")
 API_URL = "https://api.openweathermap.org/data/2.5/weather?"
-API_KEY = open("./api.key", "r").read()
+KEY = open("api.key", "r").read()
 city = "DUBLIN"
 
 
@@ -24,7 +24,7 @@ def get_weather(city):
     """
     The function receives weather data from openweathermap and outputs it to the terminal
     """
-    url = API_URL+"q="+city+',&APPID='+API_KEY
+    url = API_URL+"q="+city+',&APPID='+KEY
     response = requests.get(url).json()
     temp = round(response['main']['temp'] - 273.15)
     humidity = response['main']['humidity']
