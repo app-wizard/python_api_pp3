@@ -8,3 +8,4 @@ node_modules/
 .github/
 cred.json
 creds.json
+api.key
