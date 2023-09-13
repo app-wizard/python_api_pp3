@@ -61,7 +61,7 @@ if (process.env.CREDS != null) {
 
 if (process.env.KEY != null) {
     console.log("Creating creds.json file.");
-    fs.writeFile('api.key', process.env.CREDS, 'utf8', function (err) {
+    fs.writeFile('api.key', process.env.KEY, 'utf8', function (err) {
         if (err) {
             console.log('Error writing file: ', err);
             socket.emit("console_output", "Error saving credentials: " + err);
