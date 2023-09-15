@@ -72,7 +72,7 @@ This console application is designed to assist users in estimating their actual 
 
 The program's logical framework was conceived and charted as an algorithm. Every user action undergoes validation, and only when the information is confirmed as valid does the program progress to the subsequent step.
 
-Below, you'll find the game's underlying logic represented in the form of a flowchart, created using the online service miro.com.
+Below, you'll find the app underlying logic represented in the form of a flowchart, created using the online service miro.com.
 
 ![Flowchart of the app](assets/alg.jpg)
 
@@ -107,7 +107,7 @@ In the subsequent step, the program will request input regarding the annual sala
 
 In the following step, the program will request the user to input the anticipated number of weekly working hours. Validation will only permit progression to the subsequent step if the user enters a number within the specified range. If the input falls outside this range, the user will be prompted to provide the correct information.
 
-![Request for annual salary](assets/work_hours.jpg "Request for annual salary")
+![Request for work hours](assets/work_hours.jpg "Request for work hours")
 
 
 Once the user has provided the requested information, the program will perform essential calculations using the following criteria:
@@ -121,7 +121,7 @@ The program will display the result on the console. Furthermore, it will provide
 ![Request for annual salary](assets/result.jpg "Request for annual salary")
 
 
-* In this version, the program operates as a Minimum Viable Product (MVP) and relies on a single Google spreadsheet. This limitation may result in inaccurate information display if multiple users utilize the application simultaneously. Therefore, at this stage, the application is designed for individual use only. The subsequent section will provide a more detailed description of the steps required to launch a commercial project.
+### In this version, the program operates as a Minimum Viable Product (MVP) and relies on a single Google spreadsheet. This limitation may result in inaccurate information display if multiple users utilize the application simultaneously. Therefore, at this stage, the application is designed for individual use only. The subsequent section will provide a more detailed description of the steps required to launch a commercial project.
 
 ### Future Features
 
@@ -150,7 +150,7 @@ The program will display the result on the console. Furthermore, it will provide
 
 * [PEP8](https://pep8ci.herokuapp.com/): Employed to validate code compliance with requirements.
 
-* [Miro](https://www.miro.com): Utilized for crafting the game's flowchart.
+* [Miro](https://www.miro.com): Utilized for crafting the  flowchart.
 
 * [Weather_API] (https://openweathermap.org/api): Current Weather Data API
 
@@ -248,4 +248,4 @@ Once you have followed the appropriate step above, your Heroku app will be linke
 
 ## Aknowlodgements
 
-This game was built as my third project for [Code Institute](https://codeinstitute.net/global/).
+This app was built as project for [Code Institute](https://codeinstitute.net/global/).
