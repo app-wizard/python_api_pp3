@@ -25,6 +25,8 @@ def get_weather(city):
     """
     The function receives weather data from openweathermap
     and outputs it to the terminal
+    Args:
+        city: string: used to work with the openweathermap API
     """
     url = API_URL + "q=" + city + ",&APPID=" + KEY
     response = requests.get(url).json()
@@ -55,6 +57,8 @@ def clear():
 def new_city(answer):
     """
     Outputs the weather for the city passed in the parameters
+    Args:
+        answer: string: used to work with the openweathermap API
     """
     if answer == "Y":
         print("Enter Your City:")
