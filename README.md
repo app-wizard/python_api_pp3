@@ -1,6 +1,6 @@
 # Personal Real Wages Calculator Ireland 2024
 
-![Responsive Design](assets/mockup.jpg "Responsive design of the game")
+![Design](assets/mockup.jpg "Design")
 
 [Link to Website](https://salary-calculator-pp3-2e2cf7e2142c.herokuapp.com/)
 
@@ -8,9 +8,7 @@
 
 ## Index - Table of Contents
 
-* [Real Wages Calculator in Ireland 2024]
 * [About](#about)
-* [Index - Table of Contents](#index---table-of-contents)
 * [User Experience Research and Design](#user-experience-research-and-design)
     * [Strategy](#strategy)
     * [Scope](#scope)
@@ -30,9 +28,6 @@
     * [How to fork the GitHub repository](#how-to-fork-the-github-repository)
     * [Deploy with Heroku](#deploy-with-heroku)
 * [Credit](#credit)
-    * [People](#people)
-    * [Python Library Dependecies and Packages](#python-library-dependecies-and-packages)
-    * [Software & Web Applications](#software--web-applications)
 * [Aknowlodgements](#aknowlodgements)
 
 ## About
@@ -246,7 +241,7 @@ Once you have followed the appropriate step above, your Heroku app will be linke
     - https://www.w3schools.com/python/
 
     - https://openweathermap.org/current
-    
+
     - https://stackoverflow.com/
 
 
