@@ -237,11 +237,13 @@ Once you have followed the appropriate step above, your Heroku app will be linke
 
 * Checking code information (syntax and uses):
 
-    - https://www.w3schools.com/python/
+    - https://www.w3schools.com/python/ (python syntax)
 
-    - https://openweathermap.org/current
+    - https://openweathermap.org/current (api docs)
 
-    - https://stackoverflow.com/
+    - https://stackoverflow.com/ (How to use addon colorama)
+
+    - https://codeinstitute.net/ (how to use google api - Love Sandwiches Essentials Project)
 
 
 ## Aknowlodgements
