@@ -120,8 +120,9 @@ The program will display the result on the console. Furthermore, it will provide
 
 ![Request for annual salary](assets/result.jpg "Request for annual salary")
 
-
-*** In this version, the program operates as a Minimum Viable Product (MVP) and relies on a single Google spreadsheet. This limitation may result in inaccurate information display if multiple users utilize the application simultaneously. Therefore, at this stage, the application is designed for individual use only. The subsequent section will provide a more detailed description of the steps required to launch a commercial project.***
+***
+In this version, the program operates as a Minimum Viable Product (MVP) and relies on a single Google spreadsheet. This limitation may result in inaccurate information display if multiple users utilize the application simultaneously. Therefore, at this stage, the application is designed for individual use only. The subsequent section will provide a more detailed description of the steps required to launch a commercial project.
+***
 
 ### Future Features
 
