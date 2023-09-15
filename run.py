@@ -28,7 +28,7 @@ def get_weather(city):
     Args:
         city: string: used to work with the openweathermap API
     """
-    url = API_URL + "q=" + city + ",&APPID=" + KEY
+    url = API_URL + "q=" + city + ",IE&APPID=" + KEY
     response = requests.get(url).json()
     temp = round(response["main"]["temp"] - 273.15)
     humidity = response["main"]["humidity"]
@@ -61,7 +61,7 @@ def new_city(answer):
         answer: string: used to work with the openweathermap API
     """
     if answer == "Y":
-        print("Enter Your City:")
+        print("Enter your city in Ireland:")
         newcity = input().upper().strip()
         try:
             get_weather(newcity)
@@ -69,7 +69,7 @@ def new_city(answer):
             clear()
             print(
                 "Something went wrong, maybe just a typo in the name"
-                + f"of the {newcity}, try again:"
+                + f" of the {newcity} in Ireland, try again:"
             )
             print("Do you want to change the city Y/N?")
             resp = input().strip().upper()
